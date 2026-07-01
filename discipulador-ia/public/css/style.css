@@ -1,0 +1,406 @@
+:root {
+  --bg-deep: #12112a;
+  --bg-panel: #1c1a3d;
+  --bg-panel-2: #221f47;
+  --line: rgba(217, 169, 79, 0.16);
+  --gold: #d9a94f;
+  --gold-light: #f0cd85;
+  --gold-glow: rgba(217, 169, 79, 0.35);
+  --text: #f4efe4;
+  --text-muted: #a9a3c9;
+  --text-faint: #736e94;
+  --danger: #e08a7d;
+  --success: #8fbf9f;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse 120% 80% at 50% -10%, #2a2760 0%, var(--bg-deep) 55%), var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--gold-light); }
+
+::selection { background: var(--gold-glow); color: var(--text); }
+
+/* ---------- layout containers ---------- */
+
+.pagina-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.pagina-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 60px;
+}
+
+/* ---------- marca ---------- */
+
+.marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  user-select: none;
+}
+
+.marca-icone {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.marca-nome {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.marca-nome .ponto-ia { color: var(--gold-light); }
+
+/* ---------- cartões ---------- */
+
+.cartao {
+  width: 100%;
+  max-width: 440px;
+  background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel-2) 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.02) inset;
+}
+
+.cartao-largo { max-width: 620px; }
+
+.cartao h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.subtitulo {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 28px;
+}
+
+/* ---------- formulários ---------- */
+
+.campo { margin-bottom: 18px; }
+
+.campo label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(217, 169, 79, 0.18);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.campo textarea { resize: vertical; min-height: 110px; }
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder { color: var(--text-faint); }
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 22px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+.botao:active { transform: translateY(1px); }
+
+.botao-primario {
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  color: #241d08;
+  box-shadow: 0 10px 24px -8px var(--gold-glow);
+}
+.botao-primario:hover { box-shadow: 0 14px 30px -8px var(--gold-glow); }
+
+.botao-secundario {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.botao-secundario:hover { border-color: var(--gold); }
+
+.botao-fantasma {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  text-decoration: underline;
+  width: auto;
+  padding: 6px;
+}
+
+.rodape-form {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.erro {
+  background: rgba(224, 138, 125, 0.12);
+  border: 1px solid rgba(224, 138, 125, 0.35);
+  color: var(--danger);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  margin-bottom: 18px;
+}
+
+/* ---------- topo do app ---------- */
+
+.topo-app {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.saudacao {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.saudacao strong { color: var(--text); }
+
+.form-sair { margin: 0; }
+
+/* ---------- estepper de chama (elemento assinatura) ---------- */
+
+.estepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 26px;
+  padding: 0 4px;
+}
+
+.estepper-etapa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.estepper-chama {
+  width: 22px;
+  height: 22px;
+  opacity: 0.28;
+  transition: opacity .3s ease, filter .3s ease;
+}
+
+.estepper-etapa.acesa .estepper-chama {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--gold-glow));
+}
+
+.estepper-rotulo {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.estepper-etapa.acesa .estepper-rotulo { color: var(--gold-light); }
+
+.estepper-linha {
+  flex: 1.4;
+  height: 1px;
+  background: var(--line);
+  margin-top: -18px;
+}
+
+/* ---------- seções do resultado (jornada) ---------- */
+
+.etapa-resultado { display: none; animation: surgir .5s ease both; }
+.etapa-resultado.ativa { display: block; }
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rotulo-secao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+}
+
+.rotulo-secao::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.mensagem-motivacional {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0 0 26px;
+}
+
+.bloco-versiculo {
+  border-left: 3px solid var(--gold);
+  padding: 4px 0 4px 20px;
+  margin: 0 0 26px;
+}
+
+.bloco-versiculo p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.bloco-versiculo span {
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.historia-titulo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.historia-texto {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  margin: 0 0 26px;
+}
+
+.bloco-oracao {
+  background: rgba(217, 169, 79, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 0 0 8px;
+}
+
+.bloco-oracao p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.acoes-etapa {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.acoes-etapa .botao { width: auto; flex: 1; }
+
+.discipulado-titulo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 10px;
+}
+
+.discipulado-texto {
+  color: var(--text-muted);
+  margin: 0 0 24px;
+}
+
+/* ---------- despedida ---------- */
+
+.despedida-centro {
+  text-align: center;
+}
+
+.despedida-centro .marca-icone { width: 46px; height: 46px; margin: 0 auto 18px; display: block; }
+
+/* ---------- 404 ---------- */
+
+.pagina-404 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+/* ---------- responsivo ---------- */
+
+@media (max-width: 480px) {
+  .cartao { padding: 28px 22px; }
+  .estepper-rotulo { display: none; }
+  .acoes-etapa { flex-direction: column; }
+}

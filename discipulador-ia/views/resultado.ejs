@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include("partials/head", { titulo: "Sua jornada de hoje" }) %>
+</head>
+<body>
+  <div class="pagina-app">
+    <div class="topo-app">
+      <div class="marca">
+        <svg class="marca-icone" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C12 2 8.5 6.5 8.5 10.5C8.5 12.9853 10.0147 15 12.5 15C14.9853 15 16.5 12.9853 16.5 10.5C16.5 9.5 16 8.5 16 8.5C16 8.5 15 10 14 10C13.2 10 13 9 13 8C13 6 12 2 12 2Z" fill="#D9A94F"/>
+          <path d="M6 21C6 17 9 15 12 15C15 15 18 17 18 21" stroke="#D9A94F" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="marca-nome">Discipulador<span class="ponto-ia">.IA</span></span>
+      </div>
+      <form class="form-sair" method="POST" action="/logout">
+        <button type="submit" class="botao botao-fantasma">Sair</button>
+      </form>
+    </div>
+
+    <div class="estepper" id="estepper">
+      <% const rotulos = ["Sentimento","Palavra","Versículo","História","Oração","Discipulado"]; %>
+      <% rotulos.forEach(function(rotulo, i){ %>
+        <div class="estepper-etapa <%= i === 0 ? 'acesa' : '' %>" id="marco-<%= i + 1 %>">
+          <svg class="estepper-chama" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 2 8.5 6.5 8.5 10.5C8.5 12.9853 10.0147 15 12.5 15C14.9853 15 16.5 12.9853 16.5 10.5C16.5 9.5 16 8.5 16 8.5C16 8.5 15 10 14 10C13.2 10 13 9 13 8C13 6 12 2 12 2Z" fill="#D9A94F"/></svg>
+          <span class="estepper-rotulo"><%= rotulo %></span>
+        </div>
+        <% if (i < rotulos.length - 1) { %><div class="estepper-linha"></div><% } %>
+      <% }) %>
+    </div>
+
+    <div class="cartao cartao-largo">
+
+      <!-- Etapa 2: palavra motivacional -->
+      <div class="etapa-resultado ativa" data-etapa="2">
+        <span class="rotulo-secao">Uma palavra pra você, <%= nome %></span>
+        <p class="mensagem-motivacional"><%= jornada.mensagem %></p>
+        <div class="acoes-etapa">
+          <button class="botao botao-primario" data-avancar>Ver o versículo</button>
+        </div>
+      </div>
+
+      <!-- Etapa 3: versículo -->
+      <div class="etapa-resultado" data-etapa="3">
+        <span class="rotulo-secao">Versículo para o seu momento</span>
+        <div class="bloco-versiculo">
+          <p>"<%= jornada.versiculo.texto %>"</p>
+          <span><%= jornada.versiculo.ref %></span>
+        </div>
+        <div class="acoes-etapa">
+          <button class="botao botao-primario" data-avancar>Ouvir uma história</button>
+        </div>
+      </div>
+
+      <!-- Etapa 4: história bíblica -->
+      <div class="etapa-resultado" data-etapa="4">
+        <span class="rotulo-secao">Uma história da Bíblia</span>
+        <h2 class="historia-titulo"><%= jornada.historia.titulo %></h2>
+        <p class="historia-texto"><%= jornada.historia.texto %></p>
+        <div class="acoes-etapa">
+          <button class="botao botao-primario" data-avancar>Fazer uma oração</button>
+        </div>
+      </div>
+
+      <!-- Etapa 5: oração -->
+      <div class="etapa-resultado" data-etapa="5">
+        <span class="rotulo-secao">Vamos orar juntos</span>
+        <div class="bloco-oracao">
+          <p><%= jornada.oracao %></p>
+        </div>
+        <div class="acoes-etapa">
+          <button class="botao botao-primario" data-avancar>Continuar</button>
+        </div>
+      </div>
+
+      <!-- Etapa 6: discipulado -->
+      <div class="etapa-resultado" data-etapa="6">
+        <span class="rotulo-secao">Discipulado</span>
+        <h2 class="discipulado-titulo">Quer continuar caminhando hoje?</h2>
+        <p class="discipulado-texto">Você pode trazer outro momento seu para diante de Deus agora, ou encerrar por aqui e levar essa palavra com você pelo resto do dia.</p>
+        <form method="POST" action="/painel/discipulado">
+          <div class="acoes-etapa">
+            <button type="submit" name="acao" value="continuar" class="botao botao-primario">Continuar discipulado</button>
+            <button type="submit" name="acao" value="encerrar" class="botao botao-secundario">Encerrar por hoje</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const etapas = Array.from(document.querySelectorAll(".etapa-resultado"));
+    const botoesAvancar = document.querySelectorAll("[data-avancar]");
+
+    botoesAvancar.forEach(function (botao) {
+      botao.addEventListener("click", function () {
+        const atual = botao.closest(".etapa-resultado");
+        const numeroAtual = parseInt(atual.dataset.etapa, 10);
+        const proxima = document.querySelector('[data-etapa="' + (numeroAtual + 1) + '"]');
+        if (!proxima) return;
+
+        atual.classList.remove("ativa");
+        proxima.classList.add("ativa");
+
+        const marco = document.getElementById("marco-" + (numeroAtual + 1));
+        if (marco) marco.classList.add("acesa");
+
+        proxima.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  </script>
+</body>
+</html>

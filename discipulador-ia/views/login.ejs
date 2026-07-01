@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include("partials/head", { titulo: "Entrar" }) %>
+</head>
+<body>
+  <div class="pagina-auth">
+    <div>
+      <div class="marca">
+        <svg class="marca-icone" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C12 2 8.5 6.5 8.5 10.5C8.5 12.9853 10.0147 15 12.5 15C14.9853 15 16.5 12.9853 16.5 10.5C16.5 9.5 16 8.5 16 8.5C16 8.5 15 10 14 10C13.2 10 13 9 13 8C13 6 12 2 12 2Z" fill="#D9A94F"/>
+          <path d="M6 21C6 17 9 15 12 15C15 15 18 17 18 21" stroke="#D9A94F" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="marca-nome">Discipulador<span class="ponto-ia">.IA</span></span>
+      </div>
+
+      <div class="cartao">
+        <h1>Bem-vindo de volta</h1>
+        <p class="subtitulo">Entre para continuar sua caminhada de fé de hoje.</p>
+
+        <% if (erro) { %>
+          <div class="erro"><%= erro %></div>
+        <% } %>
+
+        <form method="POST" action="/login">
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="voce@exemplo.com" required autofocus />
+          </div>
+          <div class="campo">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Sua senha" required />
+          </div>
+          <button type="submit" class="botao botao-primario">Entrar</button>
+        </form>
+
+        <p class="rodape-form">
+          Ainda não tem conta? <a href="/registrar">Criar conta</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
