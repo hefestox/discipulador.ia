@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include("partials/head", { titulo: "Apoie o Projeto" }) %>
+  <style>
+    .doacao-topo {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .cartao-doacao {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .doacao-icone {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .doacao-titulo {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .doacao-subtitulo {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0 0 28px;
+      line-height: 1.6;
+    }
+
+    .qr-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px -8px rgba(0,0,0,0.45);
+    }
+
+    .qr-wrapper img {
+      display: block;
+      border-radius: 8px;
+    }
+
+    .pix-info {
+      background: rgba(217, 169, 79, 0.07);
+      border: 1px solid rgba(217, 169, 79, 0.22);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .pix-info-linha {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pix-info-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+
+    .pix-info-valor {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.02em;
+    }
+
+    .pix-info-nome {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .botao-copiar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: transparent;
+      border: 1px solid rgba(217, 169, 79, 0.35);
+      border-radius: 8px;
+      padding: 7px 14px;
+      color: var(--gold-light);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .botao-copiar:hover {
+      border-color: var(--gold);
+      background: rgba(217, 169, 79, 0.08);
+    }
+
+    .botao-copiar.copiado {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .aviso-copiado {
+      font-size: 0.82rem;
+      color: var(--success);
+      margin-top: 8px;
+      min-height: 1.2em;
+      transition: opacity .2s ease;
+    }
+
+    .doacao-agradecimento {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 20px 0 24px;
+      line-height: 1.65;
+    }
+
+    .doacao-voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-faint);
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: color .15s ease;
+    }
+
+    .doacao-voltar:hover { color: var(--gold-light); }
+
+    .separador {
+      width: 40px;
+      height: 1px;
+      background: var(--line);
+      margin: 22px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="pagina-app">
+
+    <div class="doacao-topo">
+      <div class="marca">
+        <svg class="marca-icone" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C12 2 8.5 6.5 8.5 10.5C8.5 12.9853 10.0147 15 12.5 15C14.9853 15 16.5 12.9853 16.5 10.5C16.5 9.5 16 8.5 16 8.5C16 8.5 15 10 14 10C13.2 10 13 9 13 8C13 6 12 2 12 2Z" fill="#D9A94F"/>
+          <path d="M6 21C6 17 9 15 12 15C15 15 18 17 18 21" stroke="#D9A94F" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="marca-nome">Discipulador<span class="ponto-ia">.IA</span></span>
+      </div>
+      <a href="/" class="doacao-voltar">← Voltar</a>
+    </div>
+
+    <div class="cartao cartao-doacao">
+      <span class="doacao-icone">🙏</span>
+      <h1 class="doacao-titulo">Apoie o Discipulador.IA</h1>
+      <p class="doacao-subtitulo">
+        Este projeto é mantido com muito amor e fé. Se ele tocou o seu coração,
+        considere fazer uma oferta — cada contribuição ajuda a manter a plataforma
+        viva e gratuita para mais pessoas.
+      </p>
+
+      <!-- QR Code Pix -->
+      <div class="qr-wrapper">
+        <img
+          src="<%= qrCodeUrl %>"
+          alt="QR Code Pix para doação"
+          width="240"
+          height="240"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Dados do Pix -->
+      <div class="pix-info">
+        <div class="pix-info-linha">
+          <div>
+            <div class="pix-info-label">Chave Pix (telefone)</div>
+            <div class="pix-info-valor"><%= pixChave %></div>
+          </div>
+          <button
+            class="botao-copiar"
+            id="btnCopiarChave"
+            onclick="copiarChave()"
+            title="Copiar chave Pix"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copiar chave
+          </button>
+        </div>
+        <p class="pix-info-nome">
+          <strong style="color: var(--text-muted);">Beneficiário:</strong>
+          <%= pixNome %> · <%= pixCidade %>
+        </p>
+      </div>
+
+      <div class="aviso-copiado" id="avisoCopiado"></div>
+
+      <!-- Também copiar payload completo -->
+      <button
+        class="botao botao-secundario"
+        style="margin-bottom: 6px;"
+        onclick="copiarPayload()"
+        id="btnCopiarPayload"
+      >
+        Copiar código Pix Copia e Cola
+      </button>
+
+      <div class="separador"></div>
+
+      <p class="doacao-agradecimento">
+        "Cada um contribua segundo propôs no seu coração; não com tristeza,
+        nem por necessidade; porque Deus ama ao que dá com alegria."
+        <br/><span style="font-size:0.82rem; color: var(--gold-light);">2 Coríntios 9:7</span>
+      </p>
+
+      <a href="/" class="doacao-voltar">← Voltar para o início</a>
+    </div>
+
+  </div>
+
+  <script>
+    const chave = "<%= pixChave %>";
+    const payload = "<%= pixPayload %>";
+
+    function mostrarFeedback(mensagem) {
+      const aviso = document.getElementById("avisoCopiado");
+      aviso.textContent = mensagem;
+      setTimeout(function () { aviso.textContent = ""; }, 3000);
+    }
+
+    function copiarChave() {
+      const btn = document.getElementById("btnCopiarChave");
+      navigator.clipboard.writeText(chave).then(function () {
+        btn.classList.add("copiado");
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado!`;
+        mostrarFeedback("✓ Chave Pix copiada com sucesso!");
+        setTimeout(function () {
+          btn.classList.remove("copiado");
+          btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar chave`;
+        }, 3000);
+      }).catch(function () {
+        mostrarFeedback("Use a chave: " + chave);
+      });
+    }
+
+    function copiarPayload() {
+      const btn = document.getElementById("btnCopiarPayload");
+      navigator.clipboard.writeText(payload).then(function () {
+        btn.textContent = "✓ Código copiado!";
+        mostrarFeedback("✓ Código Pix Copia e Cola copiado!");
+        setTimeout(function () {
+          btn.textContent = "Copiar código Pix Copia e Cola";
+        }, 3000);
+      }).catch(function () {
+        mostrarFeedback("Não foi possível copiar automaticamente.");
+      });
+    }
+  </script>
+</body>
+</html>

@@ -5,6 +5,7 @@ const session = require("express-session");
 
 const authRoutes = require("./routes/auth");
 const painelRoutes = require("./routes/painel");
+const doacaoRoutes = require("./routes/doacao");
 const { exigirLogin } = require("./middleware/auth");
 
 const app = express();
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 
 app.use(authRoutes);
 app.use(painelRoutes);
+app.use(doacaoRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404");
