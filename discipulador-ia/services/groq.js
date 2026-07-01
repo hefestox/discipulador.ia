@@ -13,13 +13,19 @@ async function gerarPalavraMotivacional(nomeUsuario, textoSentimento) {
   const modelo = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
 
   if (!apiKey) {
+    console.warn("GROQ_API_KEY não configurada. Usando fallback local em vez da API Groq.");
     return fallback(textoSentimento);
   }
 
   const systemPrompt = `Você é um conselheiro cristão gentil e acolhedor, parte do app "Discipulador.IA".
 Sua tarefa: ler o relato de sentimento de uma pessoa e responder APENAS com um JSON válido, sem markdown, sem texto extra, no formato exato:
 {"mensagem": "uma mensagem motivacional cristã, calorosa, de 3 a 5 frases, escrita em português do Brasil, citando o nome da pessoa quando fizer sentido, sem citar versículos diretamente", "categoria": "uma das opções: ${CATEGORIAS_VALIDAS.join(", ")}"}
-Escolha a categoria que melhor representa o estado emocional descrito. Se não for possível identificar claramente, use "neutro".`;
+- Faça uma palavra nova e única a cada envio.
+- Conecte-se com o sentimento descrito e use tom esperançoso, bíblico em espírito e pastoral.
+- Se não for possível identificar claramente, use "neutro".
+- Não repita frases ou respostas anteriores.
+- Não inclua explicações extras fora do JSON.
+`; 
 
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -30,8 +36,10 @@ Escolha a categoria que melhor representa o estado emocional descrito. Se não f
       },
       body: JSON.stringify({
         model: modelo,
-        temperature: 0.7,
-        max_tokens: 400,
+        temperature: 0.8,
+        top_p: 0.95,
+        presence_penalty: 0.5,
+        max_tokens: 260,
         messages: [
           { role: "system", content: systemPrompt },
           {
@@ -64,9 +72,16 @@ Escolha a categoria que melhor representa o estado emocional descrito. Se não f
   }
 }
 
+const MENSAGENS_FALLBACK = [
+  "Seja qual for o seu momento agora, saiba que você não está sozinho. Deus conhece cada detalhe do que você está vivendo e caminha ao seu lado. Respire fundo, confie e dê o próximo passo com fé.",
+  "Mesmo quando as perguntas parecem se repetir, o amor de Deus permanece fresco. Ele caminha com você, fortalece seu coração e renova sua esperança a cada novo dia.",
+  "Quando o caminho parece escuro, lembre-se: Jesus conhece sua história e está presente em cada passo. Abra seu coração para a paz que Ele oferece hoje.",
+];
+
 function fallback(textoSentimento) {
+  const mensagem = MENSAGENS_FALLBACK[Math.floor(Math.random() * MENSAGENS_FALLBACK.length)];
   return {
-    mensagem: "Seja qual for o seu momento agora, saiba que você não está sozinho. Deus conhece cada detalhe do que você está vivendo e caminha ao seu lado. Respire fundo, confie e dê o próximo passo com fé.",
+    mensagem,
     categoria: "neutro",
   };
 }
