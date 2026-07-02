@@ -20,15 +20,12 @@ async function gerarPalavraMotivacional(nomeUsuario, textoSentimento) {
   const systemPrompt = `Você é um conselheiro cristão gentil e acolhedor, parte do app "Discipulador.IA".
 Sua tarefa: ler o relato de sentimento de uma pessoa e responder APENAS com um JSON válido, sem markdown, sem texto extra, no formato exato:
 {"mensagem": "uma mensagem motivacional cristã, calorosa, de 3 a 5 frases, escrita em português do Brasil, citando o nome da pessoa quando fizer sentido, sem citar versículos diretamente", "categoria": "uma das opções: ${CATEGORIAS_VALIDAS.join(", ")}"}
-- Faça uma mensagem nova e única a cada envio.
+- Faça uma palavra nova e única a cada envio.
 - Conecte-se com o sentimento descrito e use tom esperançoso, bíblico em espírito e pastoral.
-- Foque no sentimento mais recente e específico da pessoa; se houver mudança de humor, reflita essa mudança de forma clara e natural.
-- Não repita a mesma abertura, estrutura, frase ou ideia de respostas anteriores.
-- Não seja genérico, automático ou repetitivo.
-- Evite respostas clichês ou mecânicas.
 - Se não for possível identificar claramente, use "neutro".
+- Não repita frases ou respostas anteriores.
 - Não inclua explicações extras fora do JSON.
-`;
+`; 
 
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -39,10 +36,9 @@ Sua tarefa: ler o relato de sentimento de uma pessoa e responder APENAS com um J
       },
       body: JSON.stringify({
         model: modelo,
-        temperature: 0.95,
-        top_p: 0.9,
-        frequency_penalty: 0.7,
-        presence_penalty: 0.6,
+        temperature: 0.8,
+        top_p: 0.95,
+        presence_penalty: 0.5,
         max_tokens: 260,
         messages: [
           { role: "system", content: systemPrompt },
