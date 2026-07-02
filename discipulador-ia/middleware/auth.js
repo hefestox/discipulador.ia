@@ -41,7 +41,7 @@ function calcularIsAdmin(req) {
   const usuario = obterUsuarioDaSessao(req);
   const adminEmail = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
   const usuarioEmail = (usuario?.email || "").trim().toLowerCase();
-  return Boolean(adminEmail && usuarioEmail && usuarioEmail === adminEmail) || req.session.usuarioId === 1;
+  return Boolean(adminEmail && usuarioEmail && usuarioEmail === adminEmail);
 }
 
 function exigirAdmin(req, res, next) {
