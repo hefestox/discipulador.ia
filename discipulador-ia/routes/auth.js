@@ -33,6 +33,7 @@ router.post("/registrar", redirecionarSeLogado, async (req, res) => {
 
   req.session.usuarioId = usuario.id;
   req.session.usuarioNome = usuario.nome;
+  req.session.usuarioEmail = usuario.email;
   res.redirect("/painel");
 });
 
@@ -55,6 +56,7 @@ router.post("/login", redirecionarSeLogado, async (req, res) => {
 
   req.session.usuarioId = usuario.id;
   req.session.usuarioNome = usuario.nome;
+  req.session.usuarioEmail = usuario.email;
   res.redirect("/painel");
 });
 

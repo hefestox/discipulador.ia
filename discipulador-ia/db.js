@@ -64,9 +64,37 @@ function registrarJornada({ usuarioId, sentimentoTexto, categoria, palavraMotiva
   return jornada;
 }
 
+function obterEstatisticas() {
+  const estado = ler();
+  return {
+    totalUsuarios: estado.usuarios.length,
+    totalJornadas: estado.jornadas.length,
+  };
+}
+
+function listarUsuariosAdmin() {
+  const estado = ler();
+  const jornadasPorUsuario = estado.jornadas.reduce((acc, jornada) => {
+    acc[jornada.usuarioId] = (acc[jornada.usuarioId] || 0) + 1;
+    return acc;
+  }, {});
+
+  return estado.usuarios
+    .map((usuario) => ({
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+      criadoEm: usuario.criadoEm,
+      totalJornadas: jornadasPorUsuario[usuario.id] || 0,
+    }))
+    .sort((a, b) => b.totalJornadas - a.totalJornadas || a.id - b.id);
+}
+
 module.exports = {
   buscarUsuarioPorEmail,
   buscarUsuarioPorId,
   criarUsuario,
   registrarJornada,
+  obterEstatisticas,
+  listarUsuariosAdmin,
 };

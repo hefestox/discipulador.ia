@@ -13,9 +13,14 @@
         </svg>
         <span class="marca-nome">Discipulador<span class="ponto-ia">.IA</span></span>
       </div>
-      <form class="form-sair" method="POST" action="/logout">
-        <button type="submit" class="botao botao-fantasma">Sair</button>
-      </form>
+      <div class="topo-acoes">
+        <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+          <a href="/admin" class="botao botao-fantasma">Admin</a>
+        <% } %>
+        <form class="form-sair" method="POST" action="/logout">
+          <button type="submit" class="botao botao-fantasma">Sair</button>
+        </form>
+      </div>
     </div>
 
     <div class="estepper">
